@@ -1,0 +1,32 @@
+本机环境
+/usr/share/elasticsearch
+
+启动 elasticsearch -d
+不能用以root用户启动
+
+外网可访问在elasticsearch.yml中添加配置
+http.host: 0.0.0.0
+network.host: 0.0.0.0
+discovery.seed_hosts: ["0.0.0.0", "[::1]"]
+
+
+1. elasticsearch启动后查看是否启动成功：
+curl -XGET"http://$(hostname):9200/_cluster/health?pretty=true"
+
+2. 停止elasticsearch应用：
+curl -XPOST "http:// $(hostname):9200/_shutdown"
+
+3. 查看集群健康：
+curl $(hostname):9200/_cluster/health?pretty
+
+4. 检查集群状态：
+curl $(hostname):9200/_cluster/stats?pretty
+
+5. 节点状态：
+curl $(hostname):9200/_nodes/process?pretty
+
+curl $(hostname):9200/_nodes/node1/process?pretty
+
+6. 当你不知道有那些属性可以查看时：
+curl '$(hostname):9200/_cat/'，会返回可以查看的属性
+
